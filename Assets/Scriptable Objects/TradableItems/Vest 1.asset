@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae6ff6e312082ee4e911ff8cd65e3ec5, type: 3}
   m_Name: Vest 1
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 581796429684989229, guid: aeddb048541167f4b838555371d102f5, type: 3}
   group: 0
   basePrice: 15
   description: First vest

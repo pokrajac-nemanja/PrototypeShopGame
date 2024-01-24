@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class InventoryDisplay : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class InventoryDisplay : MonoBehaviour
         {
             var slot = Instantiate(inventoryDisplaySlot, transform);
             slot.GetComponent<RectTransform>().localPosition = GetPosition(i);
+            slot.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.Container[i].getDisplayIcon();
+            slot.transform.GetChild(0).GetComponentInChildren<Image>().color = inventory.Container[i].getDisplayColor();
             slot.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].basePrice.ToString();
             itemsDisplayed.Add(inventory.Container[i], slot);
         }
@@ -52,6 +55,8 @@ public class InventoryDisplay : MonoBehaviour
             {
                 var slot = Instantiate(inventoryDisplaySlot, transform);
                 slot.GetComponent<RectTransform>().localPosition = GetPosition(i);
+                slot.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.Container[i].getDisplayIcon();
+                slot.transform.GetChild(0).GetComponentInChildren<Image>().color = inventory.Container[i].getDisplayColor();
                 slot.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Container[i].basePrice.ToString();
                 itemsDisplayed.Add(inventory.Container[i], slot);
             }

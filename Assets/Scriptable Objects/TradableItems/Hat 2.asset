@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c01e653822ee6314fa105e43c61550ba, type: 3}
-  m_Name: Hat 1
+  m_Name: Hat 2
   m_EditorClassIdentifier: 
-  prefab: {fileID: 9113059744758608297, guid: 9b21cd3ea4093ac4984320546a861acf, type: 3}
+  prefab: {fileID: 0}
   group: 0
-  basePrice: 5
-  description: First hat
+  basePrice: 0
+  description: 
   type: 1
