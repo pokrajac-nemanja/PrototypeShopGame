@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public InventoryObject inventory;
+
     private float baseSpeed = 5;
     private float runModifier = 2;
     private float speed;
@@ -19,6 +21,16 @@ public class PlayerController : MonoBehaviour
     {
         UpdateSpeed();
         UpdateMovement();
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        var collectedItem = collision.GetComponent<WorldItem>();
+        if (collectedItem)
+        {
+            inventory.AddItem(collectedItem.item);
+            Destroy(collision.gameObject);
+        }
     }
 
     private void UpdateSpeed()
@@ -48,5 +60,10 @@ public class PlayerController : MonoBehaviour
         {
             transform.Translate(Vector2.right * Time.deltaTime * speed);
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventory.Container.Clear();
     }
 }
