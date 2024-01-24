@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
   group: 0
-  basePrice: 0
+  basePrice: 5
   description: First hat
   type: 1

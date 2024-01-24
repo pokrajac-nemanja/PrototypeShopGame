@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
   group: 1
-  basePrice: 0
+  basePrice: 1
   description: A plain piece of paper.
