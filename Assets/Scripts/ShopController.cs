@@ -9,9 +9,11 @@ public class ShopController : MonoBehaviour
     public GameObject playerPannel;
     public GameObject buyButton;
     public GameObject sellButton;
+    public List<TradableItem> itemSelection;
 
     private InventoryDisplay shopInventoryDisplay;
     private InventoryDisplay playerInventoryDisplay;
+    private InventoryObject shopInventory;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,12 @@ public class ShopController : MonoBehaviour
 
         shopInventoryDisplay = shopPannel.transform.GetComponent<InventoryDisplay>();
         playerInventoryDisplay = playerPannel.transform.GetComponent<InventoryDisplay>();
+
+        shopInventory = shopInventoryDisplay.inventory;
+        foreach (TradableItem item in itemSelection)
+        {
+            shopInventory.AddItem(item);
+        }
     }
 
     // Update is called once per frame
@@ -66,5 +74,10 @@ public class ShopController : MonoBehaviour
             shopInventoryDisplay.TakeItem(item);
             playerInventoryDisplay.TakeMoney(price);
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        shopInventory.Clear();
     }
 }
