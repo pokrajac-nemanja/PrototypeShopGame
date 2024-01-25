@@ -1128,8 +1128,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 5131bbfdaeb576c499bdcf05cec1d1e3, type: 2}
   inventoryDisplaySlot: {fileID: 8488480213903883208, guid: e3e1d63f2bfde9a429817b5d5341035f, type: 3}
-  X_START: -88
-  Y_START: 113
+  X_START: -83
+  Y_START: 110
   NUMBER_OF_COLUMNS: 4
   HORIZONTAL_SPACING: 55
   VERTICAL_SPACING: 55
@@ -1249,8 +1249,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 5131bbfdaeb576c499bdcf05cec1d1e3, type: 2}
   inventoryDisplaySlot: {fileID: 8488480213903883208, guid: e3e1d63f2bfde9a429817b5d5341035f, type: 3}
-  X_START: -88
-  Y_START: 113
+  X_START: -83
+  Y_START: 110
   NUMBER_OF_COLUMNS: 4
   HORIZONTAL_SPACING: 55
   VERTICAL_SPACING: 55
@@ -1452,7 +1452,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -881987626, guid: 6f340252d4a00b24da1e71bbabe52a9b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1522,8 +1522,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 639c248a865da944e882bc0457289908, type: 2}
   inventoryDisplaySlot: {fileID: 8488480213903883208, guid: e3e1d63f2bfde9a429817b5d5341035f, type: 3}
-  X_START: -88
-  Y_START: 113
+  X_START: -83
+  Y_START: 110
   NUMBER_OF_COLUMNS: 4
   HORIZONTAL_SPACING: 55
   VERTICAL_SPACING: 55
