@@ -350,7 +350,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 1
   m_SortingLayerID: 0
   m_SortingOrder: 50
   m_TargetDisplay: 0
@@ -1179,7 +1179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9f982e31d92b4d408e880fe3dcdbd1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: ff7ec4041af2630498af537d5a51c5e7, type: 2}
+  item: {fileID: 11400000, guid: 8f16b7bc112f04e4b88b9883d489ae0f, type: 2}
 --- !u!4 &1654723005
 Transform:
   m_ObjectHideFlags: 0

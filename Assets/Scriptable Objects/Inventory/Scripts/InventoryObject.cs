@@ -28,4 +28,9 @@ public class InventoryObject : ScriptableObject
             Debug.Log("Item not added!");
         }
     }
+
+    public void MoveItem(TradableItem item1, TradableItem item2)
+    {
+
+    }
 }
