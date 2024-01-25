@@ -13,25 +13,45 @@ MonoBehaviour:
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
   Items:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
   equipedOutfit: {fileID: 11400000, guid: 8f16b7bc112f04e4b88b9883d489ae0f, type: 2}
   equipedHat: {fileID: 11400000, guid: 9c68f9f1c6e12d84fb8b51adaf70e22b, type: 2}

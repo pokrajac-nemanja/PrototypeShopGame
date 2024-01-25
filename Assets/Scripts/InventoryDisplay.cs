@@ -12,6 +12,7 @@ public class InventoryDisplay : MonoBehaviour
 
     public InventoryObject inventory;
     public GameObject inventoryDisplaySlot;
+    public GameObject buttonPrefab;
 
     public int X_START;
     public int Y_START;
@@ -22,6 +23,7 @@ public class InventoryDisplay : MonoBehaviour
 
     private Color DEFAULT_SLOT_COLOR;
     private GameObject selectedDisplaySlot;
+    private GameObject deleteButton;
 
     Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
 
@@ -40,6 +42,16 @@ public class InventoryDisplay : MonoBehaviour
 
     public void CreateDisplay()
     {
+        // Create Delete button
+        var button = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity, transform);
+        button.GetComponent<RectTransform>().localPosition = new Vector2(70, 180);
+        button.GetComponent<Button>().interactable = false;
+        button.GetComponentInChildren<TextMeshProUGUI>().text = "Delete";
+        //AddEvent(button, EventTriggerType.PointerClick, delegate { DeleteSelected(); });
+        button.GetComponent<Button>().onClick.AddListener(DeleteSelected);
+        deleteButton = button;
+
+        // Create inventory item grid
         for (int i = 0; i < inventory.Items.Length; i++)
         {
             var slot = Instantiate(inventoryDisplaySlot, Vector3.zero, Quaternion.identity, transform);
@@ -63,6 +75,16 @@ public class InventoryDisplay : MonoBehaviour
 
     public void UpdateDisplay()
     {
+        // Update Delete button
+        if (selectedDisplaySlot != null)
+        {
+            deleteButton.GetComponent<Button>().interactable = true;
+        } else
+        {
+            deleteButton.GetComponent<Button>().interactable = false;
+        }
+
+        // Update inventory item grid
         Dictionary<GameObject, InventorySlot> shownItems = new Dictionary<GameObject, InventorySlot>(itemsDisplayed);
         foreach (KeyValuePair<GameObject, InventorySlot> slot in shownItems)
         {
@@ -149,6 +171,13 @@ public class InventoryDisplay : MonoBehaviour
         {
             SelectSlot(obj);
         }
+    }
+
+    public void DeleteSelected()
+    {
+        InventorySlot item = itemsDisplayed[selectedDisplaySlot];
+        inventory.DeleteItem(item);
+        selectedDisplaySlot = null;
     }
 
     private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)

@@ -60,6 +60,12 @@ public class InventoryObject : ScriptableObject
         Items = new InventorySlot[20];
         nextID = 0;
     }
+
+    public void DeleteItem(InventorySlot item)
+    {
+        item.ID = -1;
+        item.item = null;
+    }
 }
 
 [System.Serializable]

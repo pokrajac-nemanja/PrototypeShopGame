@@ -350,7 +350,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 50
   m_TargetDisplay: 0
@@ -1073,8 +1073,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 405, y: -80}
-  m_SizeDelta: {x: 250, y: 300}
+  m_AnchoredPosition: {x: 405, y: -30}
+  m_SizeDelta: {x: 250, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1579669376
 MonoBehaviour:
@@ -1128,11 +1128,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 5131bbfdaeb576c499bdcf05cec1d1e3, type: 2}
   inventoryDisplaySlot: {fileID: 8488480213903883208, guid: e3e1d63f2bfde9a429817b5d5341035f, type: 3}
+  buttonPrefab: {fileID: 2526393848564165972, guid: 8a4e4485b353d954f866777126a5184d, type: 3}
   X_START: -83
-  Y_START: 110
+  Y_START: 60
   NUMBER_OF_COLUMNS: 4
   HORIZONTAL_SPACING: 55
   VERTICAL_SPACING: 55
+  SELECTED_SLOT_COLOR: {r: 0.6898987, g: 0.754717, b: 0.46635816, a: 1}
 --- !u!1 &1654723002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,11 +1251,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 5131bbfdaeb576c499bdcf05cec1d1e3, type: 2}
   inventoryDisplaySlot: {fileID: 8488480213903883208, guid: e3e1d63f2bfde9a429817b5d5341035f, type: 3}
+  buttonPrefab: {fileID: 0}
   X_START: -83
   Y_START: 110
   NUMBER_OF_COLUMNS: 4
   HORIZONTAL_SPACING: 55
   VERTICAL_SPACING: 55
+  SELECTED_SLOT_COLOR: {r: 0.6901961, g: 0.7529412, b: 0.46666667, a: 1}
 --- !u!114 &1681058373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1522,11 +1526,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 639c248a865da944e882bc0457289908, type: 2}
   inventoryDisplaySlot: {fileID: 8488480213903883208, guid: e3e1d63f2bfde9a429817b5d5341035f, type: 3}
+  buttonPrefab: {fileID: 0}
   X_START: -83
   Y_START: 110
   NUMBER_OF_COLUMNS: 4
   HORIZONTAL_SPACING: 55
   VERTICAL_SPACING: 55
+  SELECTED_SLOT_COLOR: {r: 0.6901961, g: 0.7529412, b: 0.46666667, a: 1}
 --- !u!114 &2015311925
 MonoBehaviour:
   m_ObjectHideFlags: 0
