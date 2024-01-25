@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01e653822ee6314fa105e43c61550ba, type: 3}
   m_Name: Green Hat 1
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 5075119529256339068, guid: d12572133d3be6148a96095950c274d9, type: 3}
   group: 0
-  basePrice: 0
+  basePrice: 7
   description: 
   type: 1
