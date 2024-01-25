@@ -14,6 +14,35 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         speed = baseSpeed;
+
+        var playerBody = transform.GetChild(0);
+        if (inventory.equipedOutfit)
+        {
+            var outfitSlot = playerBody.GetChild(0);
+            if (outfitSlot.childCount > 0)
+            {
+                for (int i = 0; i < outfitSlot.childCount; i++)
+                {
+                    Destroy(outfitSlot.GetChild(i).gameObject);
+                }
+            }
+            var newOutfit = Instantiate(inventory.equipedOutfit.prefab);
+            newOutfit.transform.parent = outfitSlot;
+        }
+
+        if (inventory.equipedHat)
+        {
+            var hatSlot = playerBody.GetChild(2);
+            if (hatSlot.childCount > 0)
+            {
+                for (int i = 0; i < hatSlot.childCount; i++)
+                {
+                    Destroy(hatSlot.GetChild(i).gameObject);
+                }
+            }
+            var newHat = Instantiate(inventory.equipedHat.prefab);
+            newHat.transform.parent = hatSlot;
+        }
     }
 
     // Update is called once per frame

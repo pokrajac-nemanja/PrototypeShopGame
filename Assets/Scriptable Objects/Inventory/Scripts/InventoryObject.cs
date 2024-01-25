@@ -6,6 +6,8 @@ using UnityEngine;
 public class InventoryObject : ScriptableObject
 {
     public List<TradableItem> Container = new List<TradableItem>();
+    public Vest equipedOutfit;
+    public Hat equipedHat;
 
     public void AddItem(TradableItem _item)
     {
