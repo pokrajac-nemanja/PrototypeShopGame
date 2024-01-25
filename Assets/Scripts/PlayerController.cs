@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.Translate(Vector2.right * Time.deltaTime * speed);
         }
-        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10); 
     }
 
     private void OnApplicationQuit()
