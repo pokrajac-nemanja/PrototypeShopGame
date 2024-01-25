@@ -20,6 +20,7 @@ public class InventoryDisplay : MonoBehaviour
     public int HORIZONTAL_SPACING;
     public int VERTICAL_SPACING;
     public Color SELECTED_SLOT_COLOR;
+    public bool ENABLE_EQUPIMENT_CONTROLS = false;
 
     private Color DEFAULT_SLOT_COLOR;
     private GameObject selectedDisplaySlot;
@@ -43,22 +44,25 @@ public class InventoryDisplay : MonoBehaviour
 
     public void CreateDisplay()
     {
-        // Create Delete button
-        var delButton = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity, transform);
-        delButton.GetComponent<RectTransform>().localPosition = new Vector2(70, 180);
-        delButton.GetComponent<Button>().interactable = false;
-        delButton.GetComponentInChildren<TextMeshProUGUI>().text = "Delete";
-        //AddEvent(button, EventTriggerType.PointerClick, delegate { DeleteSelected(); });
-        delButton.GetComponent<Button>().onClick.AddListener(DeleteSelected);
-        deleteButton = delButton;
+        if (ENABLE_EQUPIMENT_CONTROLS)
+        {
+            // Create Delete button
+            var delButton = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity, transform);
+            delButton.GetComponent<RectTransform>().localPosition = new Vector2(70, 180);
+            delButton.GetComponent<Button>().interactable = false;
+            delButton.GetComponentInChildren<TextMeshProUGUI>().text = "Delete";
+            //AddEvent(button, EventTriggerType.PointerClick, delegate { DeleteSelected(); });
+            delButton.GetComponent<Button>().onClick.AddListener(DeleteSelected);
+            deleteButton = delButton;
 
-        // Create Equip button
-        var eqButton = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity, transform);
-        eqButton.GetComponent<RectTransform>().localPosition = new Vector2(70, 155);
-        eqButton.GetComponent<Button>().interactable = false;
-        eqButton.GetComponentInChildren<TextMeshProUGUI>().text = "Equip";
-        eqButton.GetComponent<Button>().onClick.AddListener(EquipSelected);
-        equipButton = eqButton;
+            // Create Equip button
+            var eqButton = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity, transform);
+            eqButton.GetComponent<RectTransform>().localPosition = new Vector2(70, 155);
+            eqButton.GetComponent<Button>().interactable = false;
+            eqButton.GetComponentInChildren<TextMeshProUGUI>().text = "Equip";
+            eqButton.GetComponent<Button>().onClick.AddListener(EquipSelected);
+            equipButton = eqButton;
+        }
 
         // Create inventory item grid
         for (int i = 0; i < inventory.Items.Length; i++)
@@ -84,15 +88,19 @@ public class InventoryDisplay : MonoBehaviour
 
     public void UpdateDisplay()
     {
-        // Update buttons
-        if (selectedDisplaySlot != null)
+        if (ENABLE_EQUPIMENT_CONTROLS)
         {
-            deleteButton.GetComponent<Button>().interactable = true;
-            equipButton.GetComponent<Button>().interactable = true;
-        } else
-        {
-            deleteButton.GetComponent<Button>().interactable = false;
-            equipButton.GetComponent<Button>().interactable = false;
+            // Update buttons
+            if (selectedDisplaySlot != null)
+            {
+                deleteButton.GetComponent<Button>().interactable = true;
+                equipButton.GetComponent<Button>().interactable = true;
+            }
+            else
+            {
+                deleteButton.GetComponent<Button>().interactable = false;
+                equipButton.GetComponent<Button>().interactable = false;
+            }
         }
 
         // Update inventory item grid
@@ -126,6 +134,11 @@ public class InventoryDisplay : MonoBehaviour
     public Vector2 GetPosition(int i)
     {
         return new Vector2(X_START + (HORIZONTAL_SPACING * (i % NUMBER_OF_COLUMNS)), Y_START + (-VERTICAL_SPACING * (i / NUMBER_OF_COLUMNS)));
+    }
+
+    public bool HasSelected()
+    {
+        return selectedDisplaySlot != null;
     }
 
     public void OnEnter(GameObject obj)
@@ -196,6 +209,21 @@ public class InventoryDisplay : MonoBehaviour
         InventorySlot item = itemsDisplayed[selectedDisplaySlot];
         inventory.EquipItem(item);
         selectedDisplaySlot = null;
+    }
+
+    public TradableItem GiveItem()
+    {
+        InventorySlot item = itemsDisplayed[selectedDisplaySlot];
+        TradableItem itemToGive = item.item;
+        inventory.DeleteItem(item);
+        selectedDisplaySlot = null;
+
+        return itemToGive;
+    }
+
+    public void TakeItem(TradableItem item)
+    {
+        inventory.AddItem(item);
     }
 
     private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
