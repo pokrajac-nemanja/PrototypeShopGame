@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public InventoryObject inventory;
+    public AudioSource audioSrc;
 
     private float baseSpeed = 5;
     private float runModifier = 2;
@@ -80,6 +81,7 @@ public class PlayerController : MonoBehaviour
         var collectedItem = collision.GetComponent<WorldItem>();
         if (collectedItem)
         {
+            audioSrc.Play();
             inventory.AddItem(collectedItem.item);
             Destroy(collision.gameObject);
         }
