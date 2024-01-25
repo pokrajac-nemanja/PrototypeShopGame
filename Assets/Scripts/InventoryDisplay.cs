@@ -18,12 +18,17 @@ public class InventoryDisplay : MonoBehaviour
     public int NUMBER_OF_COLUMNS;
     public int HORIZONTAL_SPACING;
     public int VERTICAL_SPACING;
+    public Color SELECTED_SLOT_COLOR;
+
+    private Color DEFAULT_SLOT_COLOR;
+    private GameObject selectedDisplaySlot;
 
     Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
 
     // Start is called before the first frame update
     void Start()
     {
+        DEFAULT_SLOT_COLOR = inventoryDisplaySlot.transform.GetComponent<Image>().color;
         CreateDisplay();
     }
 
@@ -52,6 +57,7 @@ public class InventoryDisplay : MonoBehaviour
             AddEvent(slot, EventTriggerType.BeginDrag, delegate { OnDragStart(slot); });
             AddEvent(slot, EventTriggerType.EndDrag, delegate { OnDragEnd(slot); });
             AddEvent(slot, EventTriggerType.Drag, delegate { OnDrag(slot); });
+            AddEvent(slot, EventTriggerType.PointerClick, delegate { OnClick(slot); });
         }
     }
 
@@ -60,21 +66,26 @@ public class InventoryDisplay : MonoBehaviour
         Dictionary<GameObject, InventorySlot> shownItems = new Dictionary<GameObject, InventorySlot>(itemsDisplayed);
         foreach (KeyValuePair<GameObject, InventorySlot> slot in shownItems)
         {
-            Debug.Log("UpdateDisplay.");
             if (slot.Value.ID > -1)
             {
-                Debug.Log("ID > -1");
                 slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = slot.Value.item.getDisplayIcon();
                 slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = slot.Value.item.getDisplayColor();
                 slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = slot.Value.item.basePrice.ToString() + "g";
             }
             else
             {
-                Debug.Log("Else");
                 var baseSlot = inventoryDisplaySlot.transform.GetChild(0).GetComponent<Image>();
                 slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = baseSlot.sprite;
                 slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = baseSlot.color;
                 slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+            }
+
+            if (slot.Key == selectedDisplaySlot)
+            {
+                slot.Key.transform.GetComponent<Image>().color = SELECTED_SLOT_COLOR;
+            } else
+            {
+                slot.Key.transform.GetComponent<Image>().color = DEFAULT_SLOT_COLOR;
             }
         }
     }
@@ -132,6 +143,14 @@ public class InventoryDisplay : MonoBehaviour
         }
     }
 
+    public void OnClick(GameObject obj)
+    {
+        if (itemsDisplayed[obj].ID > -1)
+        {
+            SelectSlot(obj);
+        }
+    }
+
     private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
     {
         EventTrigger trigger = obj.GetComponent<EventTrigger>();
@@ -139,6 +158,17 @@ public class InventoryDisplay : MonoBehaviour
         eventTrigger.eventID = type;
         eventTrigger.callback.AddListener(action);
         trigger.triggers.Add(eventTrigger);
+    }
+
+    private void SelectSlot(GameObject slot)
+    {
+        if (selectedDisplaySlot == slot)
+        {
+            selectedDisplaySlot = null;
+        } else
+        {
+            selectedDisplaySlot = slot;
+        }
     }
 }
 
