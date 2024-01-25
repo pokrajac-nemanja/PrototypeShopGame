@@ -24,6 +24,7 @@ public class InventoryDisplay : MonoBehaviour
     private Color DEFAULT_SLOT_COLOR;
     private GameObject selectedDisplaySlot;
     private GameObject deleteButton;
+    private GameObject equipButton;
 
     Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
 
@@ -43,13 +44,21 @@ public class InventoryDisplay : MonoBehaviour
     public void CreateDisplay()
     {
         // Create Delete button
-        var button = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity, transform);
-        button.GetComponent<RectTransform>().localPosition = new Vector2(70, 180);
-        button.GetComponent<Button>().interactable = false;
-        button.GetComponentInChildren<TextMeshProUGUI>().text = "Delete";
+        var delButton = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity, transform);
+        delButton.GetComponent<RectTransform>().localPosition = new Vector2(70, 180);
+        delButton.GetComponent<Button>().interactable = false;
+        delButton.GetComponentInChildren<TextMeshProUGUI>().text = "Delete";
         //AddEvent(button, EventTriggerType.PointerClick, delegate { DeleteSelected(); });
-        button.GetComponent<Button>().onClick.AddListener(DeleteSelected);
-        deleteButton = button;
+        delButton.GetComponent<Button>().onClick.AddListener(DeleteSelected);
+        deleteButton = delButton;
+
+        // Create Equip button
+        var eqButton = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity, transform);
+        eqButton.GetComponent<RectTransform>().localPosition = new Vector2(70, 155);
+        eqButton.GetComponent<Button>().interactable = false;
+        eqButton.GetComponentInChildren<TextMeshProUGUI>().text = "Equip";
+        eqButton.GetComponent<Button>().onClick.AddListener(EquipSelected);
+        equipButton = eqButton;
 
         // Create inventory item grid
         for (int i = 0; i < inventory.Items.Length; i++)
@@ -75,13 +84,15 @@ public class InventoryDisplay : MonoBehaviour
 
     public void UpdateDisplay()
     {
-        // Update Delete button
+        // Update buttons
         if (selectedDisplaySlot != null)
         {
             deleteButton.GetComponent<Button>().interactable = true;
+            equipButton.GetComponent<Button>().interactable = true;
         } else
         {
             deleteButton.GetComponent<Button>().interactable = false;
+            equipButton.GetComponent<Button>().interactable = false;
         }
 
         // Update inventory item grid
@@ -177,6 +188,13 @@ public class InventoryDisplay : MonoBehaviour
     {
         InventorySlot item = itemsDisplayed[selectedDisplaySlot];
         inventory.DeleteItem(item);
+        selectedDisplaySlot = null;
+    }
+
+    public void EquipSelected()
+    {
+        InventorySlot item = itemsDisplayed[selectedDisplaySlot];
+        inventory.EquipItem(item);
         selectedDisplaySlot = null;
     }
 

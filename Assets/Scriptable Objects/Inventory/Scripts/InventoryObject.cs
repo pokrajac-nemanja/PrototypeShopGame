@@ -66,6 +66,23 @@ public class InventoryObject : ScriptableObject
         item.ID = -1;
         item.item = null;
     }
+
+    public void EquipItem(InventorySlot item)
+    {
+        InventorySlot temp = new InventorySlot();
+        Garment garment = (Garment) item.item;
+        if (garment.type == GarmentType.Vest)
+        {
+            temp.item = equipedOutfit;
+            equipedOutfit = (Vest) item.item;
+            item.item = temp.item;
+        } else if (garment.type == GarmentType.Hat)
+        {
+            temp.item = equipedHat;
+            equipedHat = (Hat)item.item;
+            item.item = temp.item;
+        }
+    }
 }
 
 [System.Serializable]

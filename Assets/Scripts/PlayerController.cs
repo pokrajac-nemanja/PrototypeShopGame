@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private float baseSpeed = 5;
     private float runModifier = 2;
     private float speed;
+    private Vest equipedOutfit;
+    private Hat equipedHat;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
             }
             var newOutfit = Instantiate(inventory.equipedOutfit.prefab);
             newOutfit.transform.parent = outfitSlot;
+            equipedOutfit = inventory.equipedOutfit;
         }
 
         if (inventory.equipedHat)
@@ -42,6 +45,7 @@ public class PlayerController : MonoBehaviour
             }
             var newHat = Instantiate(inventory.equipedHat.prefab);
             newHat.transform.parent = hatSlot;
+            equipedHat = inventory.equipedHat;
         }
     }
 
@@ -50,6 +54,25 @@ public class PlayerController : MonoBehaviour
     {
         UpdateSpeed();
         UpdateMovement();
+
+        var playerBody = transform.GetChild(0);
+        if (equipedOutfit != inventory.equipedOutfit)
+        {
+            Destroy(playerBody.GetChild(0).GetChild(0).gameObject);
+            var newOutfit = Instantiate(inventory.equipedOutfit.prefab);
+            newOutfit.transform.parent = playerBody.GetChild(0);
+            newOutfit.transform.localPosition = Vector2.zero;
+            equipedOutfit = inventory.equipedOutfit;
+        }
+
+        if (equipedHat != inventory.equipedHat)
+        {
+            Destroy(playerBody.GetChild(2).GetChild(0).gameObject);
+            var newHat = Instantiate(inventory.equipedHat.prefab);
+            newHat.transform.parent = playerBody.GetChild(2);
+            newHat.transform.localPosition = Vector2.zero;
+            equipedHat = inventory.equipedHat;
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
