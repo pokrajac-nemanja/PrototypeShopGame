@@ -93,6 +93,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        inventory.Items = new TradableItem[20];
+        inventory.Clear();
     }
 }

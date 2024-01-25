@@ -19,7 +19,7 @@ public class InventoryDisplay : MonoBehaviour
     public int HORIZONTAL_SPACING;
     public int VERTICAL_SPACING;
 
-    Dictionary<GameObject, TradableItem> itemsDisplayed = new Dictionary<GameObject, TradableItem>();
+    Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
 
     // Start is called before the first frame update
     void Start()
@@ -39,48 +39,43 @@ public class InventoryDisplay : MonoBehaviour
         {
             var slot = Instantiate(inventoryDisplaySlot, Vector3.zero, Quaternion.identity, transform);
             slot.GetComponent<RectTransform>().localPosition = GetPosition(i);
-            if (inventory.Items[i])
+            if (inventory.Items[i].ID > -1)
             {
-                slot.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.Items[i].getDisplayIcon();
-                slot.transform.GetChild(0).GetComponentInChildren<Image>().color = inventory.Items[i].getDisplayColor();
-                slot.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Items[i].basePrice.ToString() + "g";
+                slot.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.Items[i].item.getDisplayIcon();
+                slot.transform.GetChild(0).GetComponentInChildren<Image>().color = inventory.Items[i].item.getDisplayColor();
+                slot.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Items[i].item.basePrice.ToString() + "g";
             }
+            itemsDisplayed.Add(slot, inventory.Items[i]);
 
             AddEvent(slot, EventTriggerType.PointerEnter, delegate { OnEnter(slot); });
             AddEvent(slot, EventTriggerType.PointerExit, delegate { OnExit(slot); });
             AddEvent(slot, EventTriggerType.BeginDrag, delegate { OnDragStart(slot); });
             AddEvent(slot, EventTriggerType.EndDrag, delegate { OnDragEnd(slot); });
             AddEvent(slot, EventTriggerType.Drag, delegate { OnDrag(slot); });
-
-            itemsDisplayed.Add(slot, inventory.Items[i]);
         }
     }
 
     public void UpdateDisplay()
     {
-        int i = 0;
-        Dictionary<GameObject, TradableItem> shownItems = new Dictionary<GameObject, TradableItem>(itemsDisplayed);
-        foreach (KeyValuePair<GameObject, TradableItem> slot in shownItems)
+        Dictionary<GameObject, InventorySlot> shownItems = new Dictionary<GameObject, InventorySlot>(itemsDisplayed);
+        foreach (KeyValuePair<GameObject, InventorySlot> slot in shownItems)
         {
-            if (slot.Value != inventory.Items[i])
+            Debug.Log("UpdateDisplay.");
+            if (slot.Value.ID > -1)
             {
-                itemsDisplayed.Remove(slot.Key);
-                if (inventory.Items[i])
-                {
-                    slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.Items[i].getDisplayIcon();
-                    slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = inventory.Items[i].getDisplayColor();
-                    slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = inventory.Items[i].basePrice.ToString() + "g";
-                }
-                else
-                {
-                    var baseSlot = inventoryDisplaySlot.transform.GetChild(0).GetComponent<Image>();
-                    slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = baseSlot.sprite;
-                    slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = baseSlot.color;
-                    slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
-                }
-                itemsDisplayed.Add(slot.Key, inventory.Items[i]);
+                Debug.Log("ID > -1");
+                slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = slot.Value.item.getDisplayIcon();
+                slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = slot.Value.item.getDisplayColor();
+                slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = slot.Value.item.basePrice.ToString() + "g";
             }
-            i++;
+            else
+            {
+                Debug.Log("Else");
+                var baseSlot = inventoryDisplaySlot.transform.GetChild(0).GetComponent<Image>();
+                slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = baseSlot.sprite;
+                slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = baseSlot.color;
+                slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+            }
         }
     }
 
@@ -111,16 +106,16 @@ public class InventoryDisplay : MonoBehaviour
         rTransform.sizeDelta = new Vector2(50, 50);
         mouseObject.transform.SetParent(transform.parent);
         mouseObject.transform.localScale = Vector3.one;
-        TradableItem item;
-        if (itemsDisplayed.TryGetValue(obj, out item))
+        InventorySlot slot;
+        if (itemsDisplayed.TryGetValue(obj, out slot))
         {
             var img = mouseObject.AddComponent<Image>();
-            img.sprite = item.prefab.GetComponent<SpriteRenderer>().sprite;
-            img.color = item.prefab.GetComponent<SpriteRenderer>().color;
+            img.sprite = slot.item.prefab.GetComponent<SpriteRenderer>().sprite;
+            img.color = slot.item.prefab.GetComponent<SpriteRenderer>().color;
             img.raycastTarget = false;
         }
         mouseItem.obj = mouseObject;
-        mouseItem.item = item;
+        mouseItem.item = slot;
     }
 
     public void OnDragEnd(GameObject obj)
@@ -150,7 +145,7 @@ public class InventoryDisplay : MonoBehaviour
 public class MouseItem
 {
     public GameObject obj;
-    public TradableItem item;
+    public InventorySlot item;
     public GameObject hoverObject;
-    public TradableItem hoverItem;
+    public InventorySlot hoverItem;
 }
