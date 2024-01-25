@@ -13,16 +13,6 @@ MonoBehaviour:
   m_Name: ShopInventory
   m_EditorClassIdentifier: 
   Items:
-  - ID: 20
-    item: {fileID: 11400000, guid: 9c68f9f1c6e12d84fb8b51adaf70e22b, type: 2}
-  - ID: -1
-    item: {fileID: 0}
-  - ID: 21
-    item: {fileID: 11400000, guid: 9c68f9f1c6e12d84fb8b51adaf70e22b, type: 2}
-  - ID: 22
-    item: {fileID: 11400000, guid: 8f16b7bc112f04e4b88b9883d489ae0f, type: 2}
-  - ID: 23
-    item: {fileID: 11400000, guid: 6361e7cb577bcef458f4c209971f0b74, type: 2}
   - ID: -1
     item: {fileID: 0}
   - ID: -1
@@ -41,8 +31,18 @@ MonoBehaviour:
     item: {fileID: 0}
   - ID: -1
     item: {fileID: 0}
-  - ID: 24
-    item: {fileID: 11400000, guid: 8f16b7bc112f04e4b88b9883d489ae0f, type: 2}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
+  - ID: -1
+    item: {fileID: 0}
   - ID: -1
     item: {fileID: 0}
   - ID: -1
@@ -55,3 +55,5 @@ MonoBehaviour:
     item: {fileID: 0}
   equipedOutfit: {fileID: 0}
   equipedHat: {fileID: 0}
+  money: 150
+  STARTING_MONEY: 150

@@ -13,6 +13,7 @@ public class InventoryDisplay : MonoBehaviour
     public InventoryObject inventory;
     public GameObject inventoryDisplaySlot;
     public GameObject buttonPrefab;
+    public GameObject moneyDisplay;
 
     public int X_START;
     public int Y_START;
@@ -64,6 +65,8 @@ public class InventoryDisplay : MonoBehaviour
             equipButton = eqButton;
         }
 
+        moneyDisplay.GetComponent<TextMeshProUGUI>().text = inventory.money.ToString() + "g";
+
         // Create inventory item grid
         for (int i = 0; i < inventory.Items.Length; i++)
         {
@@ -102,6 +105,8 @@ public class InventoryDisplay : MonoBehaviour
                 equipButton.GetComponent<Button>().interactable = false;
             }
         }
+
+        moneyDisplay.GetComponent<TextMeshProUGUI>().text = inventory.money.ToString() + "g";
 
         // Update inventory item grid
         Dictionary<GameObject, InventorySlot> shownItems = new Dictionary<GameObject, InventorySlot>(itemsDisplayed);
@@ -221,9 +226,30 @@ public class InventoryDisplay : MonoBehaviour
         return itemToGive;
     }
 
+    public int GetPrice()
+    {
+        return itemsDisplayed[selectedDisplaySlot].item.basePrice;
+    }
+
+    public bool GiveMoney (int amount)
+    {
+        bool canAfford = inventory.CanAfford(amount);
+        if (canAfford)
+        {
+            inventory.GiveMoney(amount);
+        }
+
+        return canAfford;
+    }
+
     public void TakeItem(TradableItem item)
     {
         inventory.AddItem(item);
+    }
+
+    public void TakeMoney(int amount)
+    {
+        inventory.AddMoney(amount);
     }
 
     private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)

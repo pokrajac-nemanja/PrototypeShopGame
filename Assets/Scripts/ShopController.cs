@@ -48,13 +48,23 @@ public class ShopController : MonoBehaviour
 
     public void Buy()
     {
-        TradableItem item = shopInventoryDisplay.GiveItem();
-        playerInventoryDisplay.TakeItem(item);
+        int price = shopInventoryDisplay.GetPrice();
+        if (playerInventoryDisplay.GiveMoney(price))
+        {
+            TradableItem item = shopInventoryDisplay.GiveItem();
+            playerInventoryDisplay.TakeItem(item);
+            shopInventoryDisplay.TakeMoney(price);
+        }
     }
 
     public void Sell()
     {
-        TradableItem item = playerInventoryDisplay.GiveItem();
-        shopInventoryDisplay.TakeItem(item);
+        int price = playerInventoryDisplay.GetPrice();
+        if (shopInventoryDisplay.GiveMoney(price))
+        {
+            TradableItem item = playerInventoryDisplay.GiveItem();
+            shopInventoryDisplay.TakeItem(item);
+            playerInventoryDisplay.TakeMoney(price);
+        }
     }
 }

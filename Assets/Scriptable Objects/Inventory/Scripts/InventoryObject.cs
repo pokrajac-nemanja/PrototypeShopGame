@@ -8,11 +8,15 @@ public class InventoryObject : ScriptableObject
     public InventorySlot[] Items = new InventorySlot[20];
     public Vest equipedOutfit;
     public Hat equipedHat;
+    public int money;
+
+    public int STARTING_MONEY = 50;
 
     private int nextID = 0;
 
     public void OnEnable()
     {
+        money = STARTING_MONEY;
         for (int i = 0; i < Items.Length; i++)
         {
             if (Items[i] is not null && Items[i].item is not null)
@@ -45,20 +49,16 @@ public class InventoryObject : ScriptableObject
         }
     }
 
-    public void RemoveItem()
+    public void AddMoney (int add)
     {
-
-    }
-
-    public void MoveItem(TradableItem item1, TradableItem item2)
-    {
-
+        money += add;
     }
 
     public void Clear()
     {
         Items = new InventorySlot[20];
         nextID = 0;
+        money = STARTING_MONEY;
     }
 
     public void DeleteItem(InventorySlot item)
@@ -82,6 +82,16 @@ public class InventoryObject : ScriptableObject
             equipedHat = (Hat)item.item;
             item.item = temp.item;
         }
+    }
+
+    public bool CanAfford (int amount)
+    {
+        return money >= amount;
+    }
+
+    public void GiveMoney (int amount)
+    {
+        money -= amount;
     }
 }
 
