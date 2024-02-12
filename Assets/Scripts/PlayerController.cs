@@ -6,12 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     public InventoryObject inventory;
     public AudioSource audioSrc;
+    public Animator playerBodyAnimator;
 
     private float baseSpeed = 5;
     private float runModifier = 2;
     private float speed;
     private Vest equipedOutfit;
     private Hat equipedHat;
+    private Animator outfitAnimator;
+    private Animator hatAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour
             }
             var newOutfit = Instantiate(inventory.equipedOutfit.prefab);
             newOutfit.transform.parent = outfitSlot;
+            outfitAnimator = newOutfit.GetComponent<Animator>();
             equipedOutfit = inventory.equipedOutfit;
         }
 
@@ -46,6 +50,7 @@ public class PlayerController : MonoBehaviour
             }
             var newHat = Instantiate(inventory.equipedHat.prefab);
             newHat.transform.parent = hatSlot;
+            hatAnimator = newHat.GetComponent<Animator>();
             equipedHat = inventory.equipedHat;
         }
     }
@@ -63,6 +68,7 @@ public class PlayerController : MonoBehaviour
             var newOutfit = Instantiate(inventory.equipedOutfit.prefab);
             newOutfit.transform.parent = playerBody.GetChild(0);
             newOutfit.transform.localPosition = Vector2.zero;
+            outfitAnimator = newOutfit.GetComponent<Animator>();
             equipedOutfit = inventory.equipedOutfit;
         }
 
@@ -72,6 +78,7 @@ public class PlayerController : MonoBehaviour
             var newHat = Instantiate(inventory.equipedHat.prefab);
             newHat.transform.parent = playerBody.GetChild(2);
             newHat.transform.localPosition = Vector2.zero;
+            hatAnimator = newHat.GetComponent<Animator>();
             equipedHat = inventory.equipedHat;
         }
     }
@@ -98,22 +105,39 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateMovement()
     {
+        int direction = 0;
+
         if (Input.GetKey(KeyCode.W))
         {
             transform.Translate(Vector2.up * Time.deltaTime * speed);
+            direction = 1;
         }
         if (Input.GetKey(KeyCode.S))
         {
             transform.Translate(Vector2.down * Time.deltaTime * speed);
+            direction = 2;
         }
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector2.left * Time.deltaTime * speed);
+            direction = 3;
         }
         if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector2.right * Time.deltaTime * speed);
+            direction = 4;
         }
+
+        playerBodyAnimator.SetInteger("Direction", direction);
+        if (outfitAnimator != null)
+        {
+            outfitAnimator.SetInteger("Direction", direction);
+        }
+        if (hatAnimator != null)
+        {
+            hatAnimator.SetInteger("Direction", direction);
+        }
+
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10); 
     }
 
