@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private float speed;
     private Vest equipedOutfit;
     private Hat equipedHat;
+    private Animator outfitAnimator;
     private Animator hatAnimator;
 
     // Start is called before the first frame update
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
             }
             var newOutfit = Instantiate(inventory.equipedOutfit.prefab);
             newOutfit.transform.parent = outfitSlot;
+            outfitAnimator = newOutfit.GetComponent<Animator>();
             equipedOutfit = inventory.equipedOutfit;
         }
 
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
             var newOutfit = Instantiate(inventory.equipedOutfit.prefab);
             newOutfit.transform.parent = playerBody.GetChild(0);
             newOutfit.transform.localPosition = Vector2.zero;
+            outfitAnimator = newOutfit.GetComponent<Animator>();
             equipedOutfit = inventory.equipedOutfit;
         }
 
@@ -126,10 +129,15 @@ public class PlayerController : MonoBehaviour
         }
 
         playerBodyAnimator.SetInteger("Direction", direction);
+        if (outfitAnimator != null)
+        {
+            outfitAnimator.SetInteger("Direction", direction);
+        }
         if (hatAnimator != null)
         {
             hatAnimator.SetInteger("Direction", direction);
         }
+
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10); 
     }
 
