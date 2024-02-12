@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public InventoryObject inventory;
     public AudioSource audioSrc;
+    public Animator playerBodyAnimator;
 
     private float baseSpeed = 5;
     private float runModifier = 2;
@@ -98,22 +99,30 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateMovement()
     {
+        int direction = 0;
+
         if (Input.GetKey(KeyCode.W))
         {
             transform.Translate(Vector2.up * Time.deltaTime * speed);
+            direction = 1;
         }
         if (Input.GetKey(KeyCode.S))
         {
             transform.Translate(Vector2.down * Time.deltaTime * speed);
+            direction = 2;
         }
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector2.left * Time.deltaTime * speed);
+            direction = 3;
         }
         if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector2.right * Time.deltaTime * speed);
+            direction = 4;
         }
+
+        playerBodyAnimator.SetInteger("Direction", direction);
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10); 
     }
 

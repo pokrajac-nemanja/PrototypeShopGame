@@ -868,6 +868,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 5131bbfdaeb576c499bdcf05cec1d1e3, type: 2}
   audioSrc: {fileID: 568680561}
+  playerBodyAnimator: {fileID: 1982865086}
 --- !u!82 &568680561
 AudioSource:
   m_ObjectHideFlags: 0
