@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private float speed;
     private Vest equipedOutfit;
     private Hat equipedHat;
+    private Animator hatAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
             }
             var newHat = Instantiate(inventory.equipedHat.prefab);
             newHat.transform.parent = hatSlot;
+            hatAnimator = newHat.GetComponent<Animator>();
             equipedHat = inventory.equipedHat;
         }
     }
@@ -73,6 +75,7 @@ public class PlayerController : MonoBehaviour
             var newHat = Instantiate(inventory.equipedHat.prefab);
             newHat.transform.parent = playerBody.GetChild(2);
             newHat.transform.localPosition = Vector2.zero;
+            hatAnimator = newHat.GetComponent<Animator>();
             equipedHat = inventory.equipedHat;
         }
     }
@@ -123,6 +126,10 @@ public class PlayerController : MonoBehaviour
         }
 
         playerBodyAnimator.SetInteger("Direction", direction);
+        if (hatAnimator != null)
+        {
+            hatAnimator.SetInteger("Direction", direction);
+        }
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10); 
     }
 
